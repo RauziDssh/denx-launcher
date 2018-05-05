@@ -3,24 +3,33 @@
   <el-header>Header</el-header>
   <el-main style="height: 100%;overflow: auto;">
     <vue-splitter :margin="0" ref="splitter">
-      <div slot="left-pane" style="text-align: center;">
-        <el-radio-group v-model="isCollapse" v-on:change="onChange" style="margin-bottom: 20px;">
+      <div id="left-pane" slot="left-pane" style="text-align: center;">
+        <!-- <el-radio-group v-model="isCollapse" v-on:change="onChange" style="margin-bottom: 20px;">
           <el-radio-button :label="false">expand</el-radio-button>
           <el-radio-button :label="true">collapse</el-radio-button>
-        </el-radio-group>
+        </el-radio-group> -->
         <div>
-          <ul id="example-1">
+          <ul id="example-1" style="padding: 1vh;">
             <li v-for="item in tableData" style="display: inline-block;">
-              <el-card style="width: 30vh; margin: 1vh;">
+              <!-- <el-card style="width: 30vh; margin: 1vh; margin-bottom: -7vh;">
                  {{item.name}} 
                  <el-button type="success" icon="el-icon-check" circle v-on:click="onCardClick(item)"></el-button>
-              </el-card>
+              </el-card> -->
+              <div class="card" :id="item.contentId">
+                <div class="imgAspect ratio16_9">
+                  <img class="card-img-top"  @click.self="onCardClick(item)" :src="item.banner_src" alt="Card image cap" style="width:30vh;">
+                </div>
+                <div class="card-body" @click.self="onCardClick(item)">
+                  <div class="card-text">{{item.name}}</div>
+                </div>
+                  <div class="badge badge-danger absolute">RPG</div>
+              </div>
             </li>
           </ul>
         </div>
       </div>
       <div slot="right-pane">
-        <information-view :currentCell="currentCell"></information-view>
+        <information-view :currentCell="currentCell" v-on:closeMessage="closePain"></information-view>
       </div>
     </vue-splitter>
   </el-main>
@@ -28,6 +37,69 @@
 </template>
 
 <style>
+  .badge.absolute {
+    position: absolute;
+    margin: 1vh;
+  }
+
+  .card-text {
+    height: auto; 
+    font-weight: 600;
+  }
+
+  .card-body {
+    position: relative;
+    height: -10%; 
+    line-height: 2vh;
+    padding: 0.5vh; 
+  }
+
+  .imgAspect {
+    position: relative;
+    width: 100%;
+
+    overflow:hidden;
+    }
+    .imgAspect:before {
+        content:"";
+        display: block;
+    }
+    .imgAspect.ratio4_3:before {
+        padding-top:75%;
+    }
+    .imgAspect.ratio16_9:before {
+        padding-top:59.25%;
+    }
+    .imgAspect img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+    }
+
+  .card {
+    position: relative;
+    background-color: #505050; 
+    width: 30vh; 
+    height: 25vh; 
+    margin: 1vh;
+    margin-bottom: -7vh;
+    border: none;
+    color: #ffffff;
+   }
+
+  .clearfix:before,
+  .clearfix:after {
+      display: table;
+      content: "";
+  }
+  
+  .clearfix:after {
+      clear: both
+  }
+
   .body {
     height: 100vh;
   }
@@ -47,16 +119,32 @@
   }
 
   .el-header, .el-footer {
-    background-color: #B3C0D1;
-    color: #333;
+    background-color: #393939;
+    color: #ffffff;
     text-align: center;
-    line-height: 60px;
+    line-height: 50px;
+    border-bottom: medium outset #383838;
   }
   
   .el-main {
-    background-color: #E9EEF3;
-    color: #333;
+    background-color: #393939;
+    color: rgb(255, 255, 255);
     line-height: 160px;
+    padding: 0%;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 50, .5);
+    border-radius: 10px;
   }
 </style>
 
@@ -77,15 +165,21 @@ export default {
     }
   },
   methods: {
-    onChange () {
+    onChange (item) {
       console.log(this.isCollapse)
       //  let percent = this.isCollapse ? 100 : 30
       //  this.setPercent(percent)
       let self = this
       if (this.isCollapse) {
-        $({count: 30}).animate({count: 100}, {duration: 50, progress: function () { self.setPercent(this.count) }})
+        $({count: 25}).animate({count: 100}, {duration: 50,
+          progress: function () { self.setPercent(this.count) },
+          complete: function () { $('.left-pane').animate({scrollTop: 0}) }
+        })
       } else {
-        $({count: 100}).animate({count: 30}, {duration: 50, progress: function () { self.setPercent(this.count) }})
+        $({count: 100}).animate({count: 25}, {duration: 50,
+          progress: function () { self.setPercent(this.count) },
+          complete: function () { if (item != null) $('.left-pane').animate({scrollTop: $('.left-pane').scrollTop() + $('#' + item.contentId).offset().top - $('#' + item.contentId).height() / 2}) }
+        })
       }
       //  eslint-disable-next-line
     },
@@ -94,7 +188,17 @@ export default {
     },
     onCardClick (item) {
       this.currentCell = item
-      console.log(this.currentCell.name)
+      console.log($('#' + item.contentId).offset().top)
+      if (!this.isCollapse) {
+        $('.left-pane').animate({scrollTop: $('.left-pane').scrollTop() + $('#' + item.contentId).offset().top - $('#' + item.contentId).height() / 2})
+      } else {
+        this.isCollapse = false
+        this.onChange(item)
+      }
+    },
+    closePain () {
+      this.isCollapse = true
+      this.onChange()
     }
   },
   mounted: function () {

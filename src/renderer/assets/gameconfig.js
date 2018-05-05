@@ -25,13 +25,19 @@ var gameconfig = {
     readTopDirSync(folderPath)
     //  json読み込み
     let resultParsed = []
-    result.forEach((itemPath) => {
+    result.forEach((itemPath, index) => {
       let obj = JSON.parse(fs.readFileSync(itemPath))
+      obj.index = index
+      obj.contentId = 'content' + index
       obj.dir = path.dirname(itemPath)
       console.log(obj.dir)
       // バナーを取得
       obj.banner_src = obj.dir + '\\banner.png'
       obj.banner_src = obj.banner_src.replace(/^data:image\/\w+;base64,/, '')
+      //  readmeを取得
+      obj.markdown_raw = obj.dir + '\\README.md'
+      obj.markdown_raw = fs.readFileSync(obj.markdown_raw, 'utf-8')
+      console.log(obj.markdown_raw)
       //  画像を取得
       let imgSrcs = []
       let folderOfImgs = obj.dir + '\\imgs'

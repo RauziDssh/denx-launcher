@@ -62,6 +62,7 @@
     "bootstrap-vue": "^2.0.0-rc.9",
     "element-ui": "^2.3.7",
     "jquery": "^3.3.1",
+    "marked": "^0.3.19",
     "vue": "^2.3.3",
     "vue-electron": "^1.0.6",
     "vue-router": "^2.5.3",
