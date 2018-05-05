@@ -187,14 +187,18 @@ export default {
       this.$refs.splitter.percent = val
     },
     onCardClick (item) {
-      this.currentCell = item
       console.log($('#' + item.contentId).offset().top)
       if (!this.isCollapse) {
+        if (item.index === this.currentCell.index) {
+          this.isCollapse = true
+          this.onChange(null)
+        }
         $('.left-pane').animate({scrollTop: $('.left-pane').scrollTop() + $('#' + item.contentId).offset().top - $('#' + item.contentId).height() / 2})
       } else {
         this.isCollapse = false
         this.onChange(item)
       }
+      this.currentCell = item
     },
     closePain () {
       this.isCollapse = true
