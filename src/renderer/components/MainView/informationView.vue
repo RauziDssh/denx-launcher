@@ -18,7 +18,7 @@
               <img :src="item" style="position: relative; height: 100%; z-index: 0;">
             </el-carousel-item>
           </el-carousel>
-          <div style="width:auto; height:auto;">
+          <div>
             <div v-html="compiledMarkdown" class="vscode-dark" style="line-height: 3vh; padding:2vh;">
           </div>
         </div>          
