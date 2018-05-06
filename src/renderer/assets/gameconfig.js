@@ -38,6 +38,10 @@ var gameconfig = {
       obj.markdown_raw = obj.dir + '\\README.md'
       obj.markdown_raw = fs.readFileSync(obj.markdown_raw, 'utf-8')
       console.log(obj.markdown_raw)
+      //  実行ファイルへの絶対パスを取得する
+      let relativePath = obj.exe_path.slice(1)
+      obj.exe_path = obj.dir + relativePath
+      console.log(obj.exe_path)
       //  画像を取得
       let imgSrcs = []
       let folderOfImgs = obj.dir + '\\imgs'

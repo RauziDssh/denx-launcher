@@ -1,23 +1,25 @@
 <template>
-  <el-container>
+  <el-container style="height: 100%;">
     <el-header>
-        <el-row :gutter="20">
-          <el-col :span="5">
+        <b-row>
+          <b-col md="2">
             <el-button icon="el-icon-arrow-right" type="info" circle @click="$emit('closeMessage')"></el-button>
-          </el-col>
-          <el-col :span="10"><p>{{currentCell.name}}</p></el-col>
-        </el-row>
+          </b-col>
+          <b-col md="8"><p>{{currentCell.name}}</p></b-col>
+          <b-col md="2">
+            <el-button type="success" icon="el-icon-caret-right" v-on:click="play(currentCell.exe_path)">PLAY</el-button>
+          </b-col>
+        </b-row>
     </el-header>
-    <el-main>
-        <div>
-          <el-carousel :interval="4000" style="text-align: center; margin: 1vh; background-color: #303030;">
+    <el-main id="infopage">
+        <div style="margin-top: 1vh; line-height: 3vh;">
+          <el-carousel :interval="4000" style="text-align: center; background-color: #303030;">
             <el-carousel-item v-for="item in currentCell.img_srcs" :key="item">
               <img :src="item" style="height: 100%;">
             </el-carousel-item>
           </el-carousel>
-        </div>
-        <div v-html="compiledMarkdown" class="vscode-dark" style="line-height: 3vh; padding:2vh">
-          
+          <div v-html="compiledMarkdown" class="vscode-dark" style="line-height: 3vh; padding:2vh">
+        </div>          
         </div>
     </el-main>
   </el-container>
@@ -75,12 +77,41 @@
 import marked from 'marked'
 
 export default {
+  data () {
+    return {
+      activeName: 'first'
+    }
+  },
+  methods: {
+    resetView () {
+      console.log('reset')
+      $('#infopage').animate({scrollTop: 0})
+    },
+    play (val) {
+      var child = require('child_process').execFile
+      //  var executablePath = 'C:\\Users\\rauzi\\Documents\\Games\\Game1\\Debug\\DemoApp1.exe'
+      //  var executablePath = 'C:\\Program Files\\Unity\\Editor\\Unity.exe'
+      var executablePath = val
+
+      child(executablePath, function (err, data) {
+        if (err) {
+          console.error(err)
+          return
+        }
+        console.log(data.toString())
+      })
+      console.log(val)
+    }
+  },
   props: [
     'currentCell'
   ],
   computed: {
     compiledMarkdown () {
       return marked(this.currentCell.markdown_raw, { sanitize: true })
+    },
+    handleClick (tab, event) {
+      console.log(tab, event)
     }
   }
 }

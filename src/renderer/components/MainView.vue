@@ -15,21 +15,40 @@
                  {{item.name}} 
                  <el-button type="success" icon="el-icon-check" circle v-on:click="onCardClick(item)"></el-button>
               </el-card> -->
-              <div class="card" :id="item.contentId">
-                <div class="imgAspect ratio16_9">
-                  <img class="card-img-top"  @click.self="onCardClick(item)" :src="item.banner_src" alt="Card image cap" style="width:30vh;">
+              <el-popover
+                placement="right"
+                :open-delay="1000"
+                :visible-arrow="false"
+                trigger="hover">
+                <div>
+                  <el-carousel :interval="5000" arrow="never" height= "15vh">
+                    <el-carousel-item v-for="item2 in item.img_srcs" :key="item2">
+                      <img :src="item2" style="width: 100%; ">
+                    </el-carousel-item>
+                  </el-carousel>
+                  <div style="color: #383838; margin-top: 0.3vh;">
+                    以下の要素が含まれています
+                  </div>
+                  <li v-for="item2 in item.usertags" style="display: inline-block;">
+                     <div class="badge badge-info" style="margin: 0.2vh;">{{item2}}</div>
+                  </li>
                 </div>
-                <div class="card-body" @click.self="onCardClick(item)">
-                  <div class="card-text">{{item.name}}</div>
+                <div class="card" slot="reference" :id="item.contentId">
+                  <div class="imgAspect ratio16_9">
+                    <img class="card-img-top" @click.self="onCardClick(item)" :src="item.banner_src" alt="Card image cap" style="width:30vh;">
+                  </div>
+                  <div class="card-body"　@click.self="onCardClick(item)">
+                    <div class="card-text">{{item.name}}</div>
+                  </div>
+                    <div class="badge badge-danger absolute">RPG</div>
                 </div>
-                  <div class="badge badge-danger absolute">RPG</div>
-              </div>
+              </el-popover>
             </li>
           </ul>
         </div>
       </div>
-      <div slot="right-pane">
-        <information-view :currentCell="currentCell" v-on:closeMessage="closePain"></information-view>
+      <div slot="right-pane" style="height: 100%;">
+        <information-view :currentCell="currentCell" v-on:closeMessage="closePain" ref="infoview"></information-view>
       </div>
     </vue-splitter>
   </el-main>
@@ -37,6 +56,13 @@
 </template>
 
 <style>
+  .el-popover {
+    background-color: #7a7a7a;
+    border: none;
+    width: 30vh;
+    height: 24vh;
+  }
+
   .badge.absolute {
     position: absolute;
     margin: 1vh;
@@ -124,6 +150,7 @@
     text-align: center;
     line-height: 50px;
     border-bottom: medium outset #383838;
+    height: 5vh;
   }
   
   .el-main {
@@ -193,6 +220,7 @@ export default {
           this.isCollapse = true
           this.onChange(null)
         }
+        this.$refs.infoview.resetView()
         $('.left-pane').animate({scrollTop: $('.left-pane').scrollTop() + $('#' + item.contentId).offset().top - $('#' + item.contentId).height() / 2})
       } else {
         this.isCollapse = false
