@@ -1,6 +1,6 @@
 <template>
 <el-container style="height: 100vh;">
-  <el-header class="el-header" style="height: 3vh; line-height:1vh;">
+  <el-header class="el-header" style="height: 3vh; line-height:1vh; z-index: 4;filter: drop-shadow(0vh 0.5vh 0.5vh rgba(0,0,0,0.6));">
     <img class="denxlogo" src="../assets/DENXlogo-light.svg"/>
   </el-header>
   <el-main style="height: 100%;overflow: auto;">
@@ -43,14 +43,14 @@
                     <el-button type="success" icon="el-icon-caret-right" circle class="playbutton"></el-button>
                     <div class="card-text">{{item.name}}</div>
                   </div>
-                    <div class="badge badge-danger absolute">RPG</div>
+                    <div class="badge badge-danger absolute" style="box-shadow: 0.3vh 0.3vh 1vh rgba(0,0,0,0.6);">RPG</div>
                 </div>
               </el-popover>
             </li>
           </ul>
         </div>
       </div>
-      <div slot="right-pane" style="height: 100%;">
+      <div slot="right-pane" style="height: 100%; z-index: 2;">
         <information-view :currentCell="currentCell" v-on:closeMessage="closePain" ref="infoview"></information-view>
       </div>
     </vue-splitter>
@@ -76,6 +76,7 @@
     border: none;
     width: 30vh;
     height: 24vh;
+    filter: drop-shadow(3vh 3vh 3vh rgba(0,0,0,0.6));
   }
 
   .badge.absolute {
@@ -94,7 +95,7 @@
     position: relative;
     height: -10%; 
     line-height: 2vh;
-    padding: 0.5vh; 
+    padding: 0.5vh;
   }
 
   .imgAspect {
@@ -133,6 +134,7 @@
     margin-bottom: -7vh;
     border: none;
     color: #ffffff;
+    filter: drop-shadow(1vh 1vh 1vh rgba(0,0,0,0.6));
    }
 
   .clearfix:before,
@@ -189,6 +191,13 @@
   ::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 50, .5);
     border-radius: 10px;
+  }
+
+  .vue-splitter .splitter {
+    width: 1px;
+    background: #393939;
+    z-index: 3;
+    box-shadow: 0.8vh 0vh 1vh rgba(0,0,0,0.8);
   }
 </style>
 

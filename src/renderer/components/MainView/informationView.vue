@@ -1,6 +1,6 @@
 <template>
   <el-container style="height: 100%;">
-    <el-header style="text-align: center;">
+    <el-header style="text-align: center; z-index: 2; filter: drop-shadow(0vh 0.5vh 0.5vh rgba(0,0,0,0.6));">
         <b-row>
           <b-col md="2">
             <el-button icon="el-icon-arrow-right" type="info" circle @click="$emit('closeMessage')"></el-button>
@@ -13,12 +13,14 @@
     </el-header>
     <el-main id="infopage">
         <div style="line-height: 3vh;">
-          <el-carousel :interval="4000" style="text-align: center; background-color: #303030;">
+          <el-carousel :interval="4000" style="text-align: center; background-color: #303030; z-index: 1; box-shadow: inset 0vh -0.3vh 0.5vh rgba(0,0,0,0.6);">
             <el-carousel-item v-for="item in currentCell.img_srcs" :key="item">
-              <img :src="item" style="height: 100%;">
+              <img :src="item" style="position: relative; height: 100%; z-index: 0;">
             </el-carousel-item>
           </el-carousel>
-          <div v-html="compiledMarkdown" class="vscode-dark" style="line-height: 3vh; padding:2vh">
+          <div>
+            <div v-html="compiledMarkdown" class="vscode-dark" style="line-height: 3vh; padding:2vh;">
+          </div>
         </div>          
         </div>
     </el-main>
