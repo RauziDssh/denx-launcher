@@ -1,6 +1,8 @@
 <template>
 <el-container style="height: 100vh;">
-  <el-header>Header</el-header>
+  <el-header class="el-header" style="height: 3vh; line-height:1vh;">
+    <img class="denxlogo" src="../assets/DENXlogo-light.svg"/>
+  </el-header>
   <el-main style="height: 100%;overflow: auto;">
     <vue-splitter :margin="0" ref="splitter">
       <div id="left-pane" slot="left-pane" style="text-align: center;">
@@ -38,6 +40,7 @@
                     <img class="card-img-top" @click.self="onCardClick(item)" :src="item.banner_src" alt="Card image cap" style="width:30vh;">
                   </div>
                   <div class="card-body"　@click.self="onCardClick(item)">
+                    <el-button type="success" icon="el-icon-caret-right" circle class="playbutton"></el-button>
                     <div class="card-text">{{item.name}}</div>
                   </div>
                     <div class="badge badge-danger absolute">RPG</div>
@@ -56,6 +59,18 @@
 </template>
 
 <style>
+  .denxlogo {
+    height: 2vh;
+    margin: 0.5vh;
+  }
+
+  .playbutton {
+    position: relative;
+    top: -3vh;
+    left: 12vh;
+    border: 0.5vh solid #505050;
+  }
+
   .el-popover {
     background-color: #7a7a7a;
     border: none;
@@ -69,6 +84,8 @@
   }
 
   .card-text {
+    position: relative;
+    top : -3vh;
     height: auto; 
     font-weight: 600;
   }
@@ -86,6 +103,7 @@
 
     overflow:hidden;
     }
+
     .imgAspect:before {
         content:"";
         display: block;
@@ -96,6 +114,7 @@
     .imgAspect.ratio16_9:before {
         padding-top:59.25%;
     }
+
     .imgAspect img {
         position: absolute;
         top: 0;
@@ -147,10 +166,8 @@
   .el-header, .el-footer {
     background-color: #393939;
     color: #ffffff;
-    text-align: center;
     line-height: 50px;
     border-bottom: medium outset #383838;
-    height: 5vh;
   }
   
   .el-main {
@@ -165,8 +182,8 @@
   }
 
   ::-webkit-scrollbar-track {
-    border-radius: 10px;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0);
+    box-shadow: inset 0 0 5px rgb(0, 0, 0, 0);
+    background-color: #303030;;
   }
 
   ::-webkit-scrollbar-thumb {

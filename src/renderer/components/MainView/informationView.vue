@@ -1,6 +1,6 @@
 <template>
   <el-container style="height: 100%;">
-    <el-header>
+    <el-header style="text-align: center;">
         <b-row>
           <b-col md="2">
             <el-button icon="el-icon-arrow-right" type="info" circle @click="$emit('closeMessage')"></el-button>
@@ -12,7 +12,7 @@
         </b-row>
     </el-header>
     <el-main id="infopage">
-        <div style="margin-top: 1vh; line-height: 3vh;">
+        <div style="line-height: 3vh;">
           <el-carousel :interval="4000" style="text-align: center; background-color: #303030;">
             <el-carousel-item v-for="item in currentCell.img_srcs" :key="item">
               <img :src="item" style="height: 100%;">
