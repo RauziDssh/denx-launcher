@@ -1,9 +1,9 @@
 <template>
 <el-container style="height: 100vh;">
-  <el-header class="el-header" style="height: 3vh; line-height:1vh; z-index: 4;filter: drop-shadow(0vh 0.5vh 0.5vh rgba(0,0,0,0.6));">
+  <el-header class="el-header" style="height: 3vh !important ; line-height:1vh; z-index: 4;filter: drop-shadow(0vh 0.5vh 0.5vh rgba(0,0,0,0.6));">
     <img class="denxlogo" src="../assets/DENXlogo-light.svg"/>
   </el-header>
-  <el-main style="height: 100%;overflow: auto;">
+  <el-main style="height: 100% !important ;overflow: auto;">
     <vue-splitter :margin="0" ref="splitter">
       <div id="left-pane" slot="left-pane" style="text-align: center;">
         <!-- <el-radio-group v-model="isCollapse" v-on:change="onChange" style="margin-bottom: 20px;">
@@ -21,6 +21,7 @@
                 placement="right"
                 :open-delay="1000"
                 :visible-arrow="false"
+                class= "denx-popover"
                 trigger="hover">
                 <div>
                   <el-carousel :interval="5000" arrow="never" height= "15vh">
@@ -60,20 +61,20 @@
 
 <style>
   .denxlogo {
-    height: 2vh;
-    margin: 0.5vh;
+    height: 2vh !important;
+    margin: 0.5vh !important;
   }
 
   .playbutton {
     position: relative;
     top: -3vh;
     left: 12vh;
-    border: 0.5vh solid #505050;
+    border: 0.5vh solid #505050 !important;
   }
 
   .el-popover {
-    background-color: #7a7a7a;
-    border: none;
+    background: #9c9c9c !important;
+    border: none !important;
     width: 30vh;
     height: 24vh;
     filter: drop-shadow(3vh 3vh 3vh rgba(0,0,0,0.6));
@@ -93,9 +94,9 @@
 
   .card-body {
     position: relative;
-    height: -10%; 
-    line-height: 2vh;
-    padding: 0.5vh;
+    height: -10% !important; 
+    line-height: 2vh !important;
+    padding: 0.5vh !important;
   }
 
   .imgAspect {
@@ -127,12 +128,12 @@
 
   .card {
     position: relative;
-    background-color: #505050; 
-    width: 30vh; 
-    height: 25vh; 
-    margin: 1vh;
-    margin-bottom: -7vh;
-    border: none;
+    background: #505050 !important;
+    width: 30vh !important;
+    height: 25vh !important;
+    margin: 1vh !important;
+    margin-bottom: -7vh !important;
+    border: #505050 ;
     color: #ffffff;
     filter: drop-shadow(1vh 1vh 1vh rgba(0,0,0,0.6));
    }
@@ -168,15 +169,15 @@
   .el-header, .el-footer {
     background-color: #393939;
     color: #ffffff;
-    line-height: 50px;
+    line-height: 2.5vh !important;
     border-bottom: medium outset #383838;
   }
   
   .el-main {
     background-color: #393939;
     color: rgb(255, 255, 255);
-    line-height: 160px;
-    padding: 0%;
+    line-height: 160px !important;
+    padding: 0% !important;
   }
 
   ::-webkit-scrollbar {
@@ -194,8 +195,8 @@
   }
 
   .vue-splitter .splitter {
-    width: 1px;
-    background: #393939;
+    width: 2px !important;
+    background: #393939 !important;
     z-index: 3;
     box-shadow: 0.8vh 0vh 1vh rgba(0,0,0,0.8);
   }
