@@ -1,0 +1,9 @@
+{
+  "name": "Game 1", 
+  "type": "Game", 
+  "img_srcs": ["require('../assets/logo.png')"],
+  "banner_src": "../banner.png",
+  "exe_path": ".\\Debug\\DemoApp1.exe",
+  "md_readme": "# hoge\n1aaa",
+  "usertags": ["ゴリラ","オカルト","光る","ゴリラ","オカルト","光る","ゴリラ","オカルト","光る"]
+}

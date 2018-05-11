@@ -186,7 +186,7 @@
 
   ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px rgb(0, 0, 0, 0);
-    background-color: #303030;;
+    background-color: #303030;
   }
 
   ::-webkit-scrollbar-thumb {
